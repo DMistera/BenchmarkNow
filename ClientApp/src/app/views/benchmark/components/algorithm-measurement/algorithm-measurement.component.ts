@@ -21,6 +21,10 @@ export class AlgorithmMeasurementComponent implements OnInit {
     return this.algorithmMeasurement.state==AlgorithmMeasurementState.IN_PROGRESS
   }
 
+  isFinished(){
+    return this.algorithmMeasurement.state==AlgorithmMeasurementState.FINISHED
+  }
+
   getStateString(): string {
     switch(this.algorithmMeasurement.state) {
       case AlgorithmMeasurementState.READY:
@@ -33,5 +37,4 @@ export class AlgorithmMeasurementComponent implements OnInit {
         throw Error("Invalid state");
     }
   }
-
 }
