@@ -1,0 +1,5 @@
+<div class="container rounded shadow py-4">
+  <p class="text-white">Algorithm: {{algorithmMeasurement.algorithm.name}} ({{algorithmMeasurement.parameter}})</p>
+  <p class="text-white">Status: {{getStateString()}}</p>
+  <p class="text-white" *ngIf="algorithmMeasurement.result">Result: {{algorithmMeasurement.result?.averageTime}} ms</p>
+</div>

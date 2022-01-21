@@ -1,0 +1,8 @@
+
+<div class="container" *ngIf="results">
+  <div class="row" *ngFor="let chartData of results.charts">
+    <div class="col-sm">
+      <app-chart [chartData]="chartData"></app-chart>
+    </div>
+  </div>
+</div>

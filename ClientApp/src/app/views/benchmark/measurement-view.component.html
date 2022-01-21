@@ -1,0 +1,15 @@
+<div class="container">
+  <div style="height: 10em" class="row justify-content-sm-center align-items-center">
+    <div class="col-sm-auto">
+      <button type="button" class="btn btn-outline-primary btn-lg" (click)="startBenchmark()">Benchmark</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm" *ngFor="let algorithmMeasurement of algorithmMeasurements">
+      <app-algorithm-measurement
+      [algorithmMeasurement]="algorithmMeasurement">
+      </app-algorithm-measurement>
+    </div>
+  </div>
+</div>
+
