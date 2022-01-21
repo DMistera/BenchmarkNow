@@ -8,6 +8,8 @@ import { HttpClient } from '@angular/common/http';
 import { NbodyService } from './algorithms/nbody.service';
 import { SpectralNormService } from './algorithms/spectral-norm.service';
 import { FastaService } from './algorithms/fasta.service';
+import { SettingsService } from './settings.service';
+import { Settings } from '../models/settings';
 
 @Injectable({
   providedIn: 'root'
@@ -19,17 +21,20 @@ export class BenchmarkService {
     private nbodyService: NbodyService,
     private spectralNormService: SpectralNormService,
     private fastaService: FastaService,
-    private http: HttpClient) { }
+    private http: HttpClient,) {
+    }
 
-  private readonly iterations = 5;
-  private readonly algorithms : AlgorithmInstance[] = [
-    { algorithm: this.binaryTreesService, parameter: 15 },
-    { algorithm: this.nbodyService, parameter: 10000 },
-    { algorithm: this.spectralNormService, parameter: 1000 },
-    { algorithm: this.fastaService, parameter: 2000 }
-  ]
+  private iterations : number;
+  private algorithms : AlgorithmInstance[];
 
-  public createInitialMeasurements() : AlgorithmMeasurement[] {
+  public createInitialMeasurements(settings: Settings) : AlgorithmMeasurement[] {
+    this.iterations = settings.iterations;
+    this.algorithms = [
+      { algorithm: this.binaryTreesService, parameter: settings.binaryTrees },
+      { algorithm: this.nbodyService, parameter: settings.nBody },
+      { algorithm: this.spectralNormService, parameter: settings.spectralNorm },
+      { algorithm: this.fastaService, parameter: settings.fasta }
+    ];
     return this.algorithms.map(a => {
       return {
         algorithm: a.algorithm,

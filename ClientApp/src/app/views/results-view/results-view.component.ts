@@ -14,8 +14,18 @@ export class ResultsViewComponent implements OnInit {
   constructor(private resultsService: ResultsService) { }
 
   ngOnInit(): void {
+    this.updateResults();
+  }
+
+  updateResults(): void {
     this.resultsService.get().subscribe(results => {
       this.results = results;
+    });
+  }
+
+  clearData(): void {
+    this.resultsService.clear().subscribe(() => {
+      this.updateResults();
     });
   }
 

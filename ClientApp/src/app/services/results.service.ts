@@ -15,4 +15,9 @@ export class ResultsService {
   }
 
 
+  public clear(): Observable<void> {
+    return this.http.delete<void>("/api/measurements");
+  }
+
+
 }

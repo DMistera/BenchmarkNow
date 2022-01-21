@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlgorithmMeasurement } from 'src/app/models/algorithm-measurement';
 import { AlgorithmMeasurementState } from 'src/app/models/algorithm-measurement-state';
 import { BenchmarkService } from 'src/app/services/benchmark.service';
+import { SettingsService } from 'src/app/services/settings.service';
 
 @Component({
   selector: 'app-measurement-view',
@@ -12,8 +13,10 @@ export class MeasurementViewComponent implements OnInit {
 
   algorithmMeasurements: AlgorithmMeasurement[];
 
-  constructor(private benchmarkService: BenchmarkService) {
-    this.algorithmMeasurements = this.benchmarkService.createInitialMeasurements();
+  constructor(private benchmarkService: BenchmarkService, private settingsService: SettingsService) {
+    this.settingsService.get().subscribe(settings => {
+      this.algorithmMeasurements = this.benchmarkService.createInitialMeasurements(settings);
+    });
   }
 
   ngOnInit(): void {

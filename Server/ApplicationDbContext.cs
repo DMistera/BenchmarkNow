@@ -14,6 +14,9 @@ namespace BenchmarkNow
             optionsBuilder.UseSqlServer(configuration.GetConnectionString("DbContext"));
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+        }
+
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<Settings> Settings { get; set; }
     }

@@ -1,4 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Linq;
 using UAParser;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -39,6 +42,28 @@ namespace BenchmarkNow
             dbContext.Measurements.Add(measurement);
             await dbContext.SaveChangesAsync();
 
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Clear() {
+            var ipAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
+            List<Measurement> measurementsToDelete = dbContext.Measurements
+                .Include(m => m.AlgorithmMeasurements)
+                .ThenInclude(m => m.Algorithm)
+                .Include(m => m.AlgorithmMeasurements)
+                .ThenInclude(m => m.Result)
+                .Where(m => m.IpAddress == ipAddress)
+                .ToList();
+            List<AlgorithmMeasurement> algorithmMeasurementsToDelete = measurementsToDelete.SelectMany(m => m.AlgorithmMeasurements).ToList();
+            List<AlgorithmMeasurementResult> algorithmMeasurementResultsToDelete = algorithmMeasurementsToDelete.Select(m => m.Result).ToList();
+            List<Algorithm> algorithmsToDelee = algorithmMeasurementsToDelete.Select(m => m.Algorithm).ToList();
+            dbContext.Set<Algorithm>().RemoveRange(algorithmsToDelee);
+            dbContext.Set<AlgorithmMeasurementResult>().RemoveRange(algorithmMeasurementResultsToDelete);
+            dbContext.Set<AlgorithmMeasurement>().RemoveRange(algorithmMeasurementsToDelete);
+            dbContext.Measurements.RemoveRange(measurementsToDelete);
+            await dbContext.SaveChangesAsync();
             return Ok();
         }
     }
