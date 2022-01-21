@@ -28,21 +28,19 @@ export class MeasurementViewComponent implements OnInit {
   }
 
   benchmarkChain(i : number) {
-    // setTimeout(() => {
-      let algorithmMeasurement = this.algorithmMeasurements[i];
-      algorithmMeasurement.state = AlgorithmMeasurementState.IN_PROGRESS;
-      setTimeout(() => {
-        algorithmMeasurement.result = this.benchmarkService.benchmarkAlgorithm(algorithmMeasurement);
-        algorithmMeasurement.state = AlgorithmMeasurementState.FINISHED;
-        if(i < this.algorithmMeasurements.length - 1) {
-          i++;
-          this.benchmarkChain(i);
-        }
-        else {
-          this.benchmarkService.sendResults(this.algorithmMeasurements);
-        }
-      })
-    // });
+    let algorithmMeasurement = this.algorithmMeasurements[i];
+    algorithmMeasurement.state = AlgorithmMeasurementState.IN_PROGRESS;
+    setTimeout(() => {
+      algorithmMeasurement.result = this.benchmarkService.benchmarkAlgorithm(algorithmMeasurement);
+      algorithmMeasurement.state = AlgorithmMeasurementState.FINISHED;
+      if(i < this.algorithmMeasurements.length - 1) {
+        i++;
+        this.benchmarkChain(i);
+      }
+      else {
+        this.benchmarkService.sendResults(this.algorithmMeasurements);
+      }
+    },10)
   }
 }
 
