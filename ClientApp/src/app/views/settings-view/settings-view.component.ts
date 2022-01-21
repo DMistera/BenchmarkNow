@@ -24,7 +24,15 @@ export class SettingsViewComponent implements OnInit {
       this.form.setValue(settings);
     });
     this.form.valueChanges.subscribe(change => {
-      this.settingsService.set(this.form.getRawValue()).subscribe()
+      let nullFlag = false;
+      for(let c in change){
+        if(change[c]==null || change[c]==0){
+          nullFlag = true;
+        }
+      }
+      if(!nullFlag){
+        this.settingsService.set(this.form.getRawValue()).subscribe()
+      }
     })
   }
 
