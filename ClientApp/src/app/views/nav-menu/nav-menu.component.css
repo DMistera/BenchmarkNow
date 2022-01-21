@@ -16,3 +16,15 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+
+.menu-item:hover {
+  color: #0d6efd;
+}
+
+.disabled-link{
+  text-decoration: none;
+}
+
+.disabled-link>.menu-item:hover{
+  text-decoration: none;
+}
