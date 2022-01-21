@@ -1,10 +1,14 @@
 
-<div class="container" *ngIf="results">
+<!-- <div class="container" *ngIf="results">
   <div class="row" *ngFor="let chartData of results.charts">
     <div class="col-sm">
       <app-chart [chartData]="chartData"></app-chart>
     </div>
   </div>
+</div> -->
+<div class="row row-cols-1 row-cols-xl-2 pb-4 p-0 m-0" *ngIf="results">
+  <div class="col p-0 mb-4" *ngFor="let chartData of results.charts">
+    <app-chart [chartData]="chartData"></app-chart>
+  </div>
 </div>
-
 <button type="button" class="btn btn-danger btn m-5" (click)="clearData()">Clear data</button>
