@@ -17,6 +17,10 @@ export class AlgorithmMeasurementComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isInProgress(){
+    return this.algorithmMeasurement.state==AlgorithmMeasurementState.IN_PROGRESS
+  }
+
   getStateString(): string {
     switch(this.algorithmMeasurement.state) {
       case AlgorithmMeasurementState.READY:
