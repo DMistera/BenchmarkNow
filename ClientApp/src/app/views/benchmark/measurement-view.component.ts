@@ -28,7 +28,7 @@ export class MeasurementViewComponent implements OnInit {
   }
 
   benchmarkChain(i : number) {
-    setTimeout(() => {
+    // setTimeout(() => {
       let algorithmMeasurement = this.algorithmMeasurements[i];
       algorithmMeasurement.state = AlgorithmMeasurementState.IN_PROGRESS;
       setTimeout(() => {
@@ -42,9 +42,8 @@ export class MeasurementViewComponent implements OnInit {
           this.benchmarkService.sendResults(this.algorithmMeasurements);
         }
       })
-    });
+    // });
   }
-
 }
 
 
